@@ -10,6 +10,7 @@ const Nav = async () => {
       <nav className='flex justified-between items-center w-full px-10 py-4'>
         <div className='flex gap-10'>
           <Link href="/">Home</Link>
+          <Link href="/create-account">Create Account</Link>
           <Link href="/create-user">Create User</Link>
           <Link href="/create-transaction">Create Transaction</Link>
           <Link href="/client-member">Client Member</Link>

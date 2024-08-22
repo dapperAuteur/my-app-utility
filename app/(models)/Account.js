@@ -8,6 +8,11 @@ const accountSchema = new Schema({
   accountName: {
     type: String,
     required: true,
+    unique: true,
+  },
+  accountType: {
+    type: String,
+    required: true,
     default: "Checking"
   }
 });

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export default withAuth(
   function middleware(req) {
-    if ((req.nextUrl.pathname.startsWith("/create-user") || req.nextUrl.pathname.startsWith("/create-transaction")) && req.nextauth.token.role !== "admin") {      
+    if ((req.nextUrl.pathname.startsWith("/create") ) && req.nextauth.token.role !== "admin") {      
       return NextResponse.rewrite(new URL("/denied", req.url));
     }
   },
@@ -16,6 +16,7 @@ export default withAuth(
 
 export const config = {
   matcher: [
+    "/create-account",
     "/create-user",
     "/create-transaction",
     "/client-member",
