@@ -63,36 +63,3 @@ export async function GET(req) {
       { status: 500 });
   }
 }
-
-export async function GET(req) {
-
-  // get _id from req URL
-
-  try {
-    const account = await Account.find({
-      _id: _id
-    });
-
-    return NextResponse.json(
-      {
-      account: account
-      },
-      {
-        status: 200
-      }
-    );
-
-  } catch (error) {
-    console.log('error :>> ', error);
-
-    return NextResponse.json(
-      {
-        message: "Error",
-        error: error
-      },
-      {
-        status: 500
-      }
-    );
-  }
-}
