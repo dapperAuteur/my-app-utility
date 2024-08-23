@@ -2,9 +2,7 @@ import Account from "./../../../(models)/Account";
 import { NextResponse } from "next/server";
 
 export async function GET (req, { params }) {
-  // console.log('5 server params :>> ', params);
   const { _id } = params;
-  // console.log('_id :>> ', _id);
 
   try {
     let foundAccount = await Account.find({_id: _id})
@@ -12,10 +10,8 @@ export async function GET (req, { params }) {
         return obj;
       })
       .then((fA) => {
-        console.log('fA :>> ', fA);
         return fA;
       });
-  console.log('foundAccount :>> ', foundAccount);
 
   return NextResponse.json(
     {
@@ -36,13 +32,4 @@ export async function GET (req, { params }) {
       }
     )
   }
-
-  return NextResponse.json(
-    {
-      account: foundAccount,
-    },
-    {
-      status: 200
-    }
-  )
 }
