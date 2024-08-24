@@ -81,7 +81,42 @@ export async function PATCH(req, {params}) {
       }
     )
   } catch (error) {
-    console.log('52 app/api/accounts/[_id]/route error :>> ', error);
+    console.log('84 app/api/accounts/[_id]/route error :>> ', error);
+    return NextResponse.json(
+      {
+        message: "Error", error
+      },
+      {
+        status: 500
+      }
+    )
+  }
+}
+
+export async function DELETE(req, { params }) {
+  const { _id } = params;
+  try {
+    const res = await Account.deleteOne({_id});
+    if (!res) {
+      return NextResponse.json(
+        {
+          message: "Account NOT DELETED!"
+        },
+        {
+          status: 409
+        }
+      )
+    }
+    return NextResponse.json(
+      {
+        message: "Account DELETED"
+      },
+      {
+        status: 200
+      }
+    )
+  } catch (error) {
+    console.log('111 app/api/accounts/[_id]/route error :>> ', error);
     return NextResponse.json(
       {
         message: "Error", error
