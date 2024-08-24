@@ -8,6 +8,8 @@ const Accounts = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
 
+  // refactor so there isn't redundant code
+  // same code is in `/accounts/[_id]/page`
   const handleDelete = async (accountId) => {
     try {
       const res = await fetch(`/api/accounts/${accountId}`, {
@@ -53,8 +55,8 @@ const Accounts = () => {
         accounts.map((account) => (
           <div className='border-double border-2' key={account._id}>
             <Link href={`/accounts/${account._id}`}>
-              <h3>{account.accountName}</h3>
-              <h4>{account.accountType}</h4>
+              <h3>{account.account_name}</h3>
+              <h4>{account.account_type}</h4>
             </Link>
             <div>
               <Link className='border-double border-2' href={`/accounts/${account._id}/edit`}>Edit</Link>

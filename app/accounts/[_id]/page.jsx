@@ -57,8 +57,8 @@ function Account ({params}) {
   return (
     <div>
       <h2>Account</h2>
-      <h3>{account.accountName}</h3>
-      <h3>{account.accountType}</h3>
+      <h3>{account.account_name}</h3>
+      <h3>{account.account_type}</h3>
       <div>
         <Link href={`/accounts/${account._id}/edit`}>Edit</Link>
       </div>

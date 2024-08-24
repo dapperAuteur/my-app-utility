@@ -45,7 +45,7 @@ export async function PATCH(req, {params}) {
   try {
     // update account
     const duplicate = await Account.findOne({
-      accountName: acctData.accountName
+      account_name: acctData.account_name
     })
       .lean()
       .exec();

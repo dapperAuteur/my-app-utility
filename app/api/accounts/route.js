@@ -6,7 +6,7 @@ export async function POST(req) {
     const body = await req.json();
     const acctData = body.formData;
 
-    if (!acctData?.accountName || !acctData?.accountType) {
+    if (!acctData?.account_name || !acctData?.account_type) {
       return NextResponse.json({
         message: "All fields are required."
       },
@@ -16,7 +16,7 @@ export async function POST(req) {
     }
     // check for duplicate account names
     const duplicate = await Account.findOne({
-      accountName: acctData.accountName
+      account_name: acctData.account_name
     })
       .lean()
       .exec();
