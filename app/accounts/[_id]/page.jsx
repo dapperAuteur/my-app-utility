@@ -1,5 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 function Account ({params}) {
   // console.log('5 client params :>> ', params);
@@ -40,6 +41,12 @@ function Account ({params}) {
       <h2>Account</h2>
       <h3>{account.accountName}</h3>
       <h3>{account.accountType}</h3>
+      <div>
+        <Link href={`/accounts/${account._id}/edit`}>Edit</Link>
+      </div>
+      <div>
+        <button>Delete</button>
+      </div>
     </div>
   )
 }
