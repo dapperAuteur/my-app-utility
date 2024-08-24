@@ -31,7 +31,7 @@ function EditAccount({params}) {
 
   return (
     <div>
-      <h2>Edit Account</h2>
+      <h2>Edit Account Form</h2>
       <AccountFormEdit account={account} />
     </div>
   )
