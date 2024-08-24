@@ -9,6 +9,24 @@ function Account ({params}) {
   const [account, setAccount] = useState(null);
   const [error, setError] = useState(null);
 
+  // refactor so there isn't redundant code
+  // same code is in `/accounts/page`
+  const handleDelete = async (accountId) => {
+    try {
+      const res = await fetch(`/api/accounts/${accountId}`, {
+        method: "DELETE",
+        "content-type": "application/json",
+      });
+      setAccounts(accounts.filter(account => account._id !== accountId));
+      console.log('res :>> ', res.statusText);
+      setMessage(res.statusText);
+    } catch (error) {
+      console.error('Failed to delete the account', error);
+      console.log('16 app/accounts/page error :>> ', error);;
+      setErrorMessage(error);
+    }
+  }
+
   useEffect(() => {
     async function fetchAccount() {
       try {
@@ -45,7 +63,9 @@ function Account ({params}) {
         <Link href={`/accounts/${account._id}/edit`}>Edit</Link>
       </div>
       <div>
-        <button>Delete</button>
+        <button className='border-double border-2'
+          onClick={() => handleDelete(account._id)}
+          >Delete</button>
       </div>
     </div>
   )
