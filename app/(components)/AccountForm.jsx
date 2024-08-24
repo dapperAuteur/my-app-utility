@@ -53,7 +53,7 @@ const AccountForm = () => {
           type="text"
           onChange={handleChange}
           required={true}
-          value={formData.account_name}
+          value={formData.accountName}
           className="m-2 bg-slate-400 rounded" />
         <label>Account Type</label>
         <input
