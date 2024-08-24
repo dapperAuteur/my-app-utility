@@ -10,6 +10,7 @@ const AccountForm = () => {
     "accountType": "Checking",
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -33,6 +34,7 @@ const AccountForm = () => {
       setErrorMessage(response.message);
     } else {
       setFormData({});
+      setSuccessMessage("ACCOUNT CREATED");
       router.refresh();
       router.push("/create-account");
     }
@@ -70,6 +72,7 @@ const AccountForm = () => {
           className="bg-blue-300 hover:bg-blue-100" />
       </form>
       <p className="text-red-500">{errorMessage}</p>
+      <p className="text-green-500">{successMessage}</p>
     </>
   )
 }
