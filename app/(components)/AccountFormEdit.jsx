@@ -24,15 +24,17 @@ const AccountFormEdit = ({account}) => {
     setErrorMessage("");
     console.log('25 AccountFormEdit formData :>> ', formData);
     const res = await fetch(`/api/accounts/${formData._id}`, {
-      method: "POST",
+      method: "PATCH",
       body: JSON.stringify({formData}),
       "content-type": "application/json",
     });
     if (!res.ok) {
       const response = await res.json();
+      console.log('33 AccountFormEdit response :>> ', response);
       setErrorMessage(response.message);
     } else {
       setFormData({});
+      setErrorMessage("");
       router.refresh();
       router.push(`/accounts/${account._id}`);
     }
@@ -42,10 +44,10 @@ const AccountFormEdit = ({account}) => {
     <>
       <form
         onSubmit={handleSubmit}
-        method="post"
+        method="patch" //BLOG ensure method here matches method used in handle submit
         className="flex flex-col gap-3 w-1/2"
         >
-        <h1>Create New Account</h1>
+        <h1>Edit {formData.accountName} Account</h1>
         <label>Account Name</label>
         <input
           id="accountName"
