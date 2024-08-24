@@ -6,8 +6,8 @@ import React, { useState } from "react";
 const AccountForm = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    "accountName": "",
-    "accountType": "Checking",
+    "account_name": "",
+    "account_type": "Checking",
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -50,21 +50,21 @@ const AccountForm = () => {
         <h1>Create New Account</h1>
         <label>Account Name</label>
         <input
-          id="accountName"
-          name="accountName"
+          id="account_name"
+          name="account_name"
           type="text"
           onChange={handleChange}
           required={true}
-          value={formData.accountName}
+          value={formData.account_name}
           className="m-2 bg-slate-400 rounded" />
         <label>Account Type</label>
         <input
-          id="accountType"
-          name="accountType"
+          id="account_type"
+          name="account_type"
           type="text"
           onChange={handleChange}
           required={true}
-          value={formData.accountType}
+          value={formData.account_type}
           className="m-2 bg-slate-400 rounded" />
         <input
           type="submit"

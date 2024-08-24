@@ -5,12 +5,12 @@ mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
 
 const accountSchema = new Schema({
-  accountName: {
+  account_name: {
     type: String,
     required: true,
     unique: true,
   },
-  accountType: {
+  account_type: {
     type: String,
     required: true,
     default: "Checking"

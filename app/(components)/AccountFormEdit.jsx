@@ -47,24 +47,24 @@ const AccountFormEdit = ({account}) => {
         method="patch" //BLOG ensure method here matches method used in handle submit
         className="flex flex-col gap-3 w-1/2"
         >
-        <h1>Edit {formData.accountName} Account</h1>
+        <h1>Edit {formData.account_name} Account</h1>
         <label>Account Name</label>
         <input
-          id="accountName"
-          name="accountName"
+          id="account_name"
+          name="account_name"
           type="text"
           onChange={handleChange}
           required={true}
-          value={formData.accountName}
+          value={formData.account_name}
           className="m-2 bg-slate-400 rounded" />
         <label>Account Type</label>
         <input
-          id="accountType"
-          name="accountType"
+          id="account_type"
+          name="account_type"
           type="text"
           onChange={handleChange}
           required={true}
-          value={formData.accountType}
+          value={formData.account_type}
           className="m-2 bg-slate-400 rounded" />
         <input
           type="submit"
