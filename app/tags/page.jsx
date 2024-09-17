@@ -13,7 +13,7 @@ function Tags() {
   const handleDelete = async (tagId) => {
     // console.log('tagId :>> ', tagId);
     try {
-      const res = await fetch(`/api/tags/${tag._id}`, {
+      const res = await fetch(`/api/tags/${tagId}`, {
         method: "DELETE",
         "content-type": "application/json",
       });
