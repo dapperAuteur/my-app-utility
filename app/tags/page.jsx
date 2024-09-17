@@ -8,6 +8,7 @@ function Tags() {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  console.log('errorMessage.message :>> ', errorMessage.message);
 
   const handleDelete = async (tagId) => {
     // console.log('tagId :>> ', tagId);
@@ -48,7 +49,7 @@ function Tags() {
   return (
     <div className='m-2'>
       <h3>Tag List</h3>
-      <p>{errorMessage}</p>
+      <p>{errorMessage.message}</p>
       <p>{successMessage}</p>
       {
         tags.map(tag => (
