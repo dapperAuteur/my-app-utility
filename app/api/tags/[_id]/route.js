@@ -51,3 +51,39 @@ export async function PATCH(req, {params}) {
     )
   }
 }
+
+export async function DELETE(req, {params}) {
+  const { _id } = params;
+
+  try {
+    const res = await Tag.deleteOne({_id});
+    if (!res) {
+      return NextResponse.json(
+        {
+          message: "Tag NOT DELETED!"
+        },
+        {
+          status: 409
+        }
+      )
+    }
+    return NextResponse.json(
+      {
+        message: "Tag DELETED"
+      },
+      {
+        status: 200
+      }
+    )
+  } catch (error) {
+    console.log('79 app/api/tags/[_id]/route error :>> ', error);
+    return NextResponse.json(
+      {
+        message: "Error", error
+      },
+      {
+        status: 500
+      }
+    )
+  }
+}
