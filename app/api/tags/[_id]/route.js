@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import Tag from "./../../../(models)/Tag";
+import Error from "next/error";
 
 export async function GET(req, {params}) {
   
@@ -53,7 +54,22 @@ export async function PATCH(req, {params}) {
 }
 
 export async function DELETE(req, {params}) {
+  console.log('params :>> ', params);
+  const body = await req.json();
   const { _id } = params;
+  console.log('body :>> ', body);
+  const role = body.user.role;
+  if (role !== "admin") {
+    return new Error
+    // return NextResponse.json(
+    //   {
+    //     message: "Tag NOT DELETED! Must be Admin to delete Tag."
+    //   },
+    //   {
+    //     status: 400
+    //   }
+    // )
+  }
 
   try {
     const res = await Tag.deleteOne({_id});
@@ -79,7 +95,7 @@ export async function DELETE(req, {params}) {
     console.log('79 app/api/tags/[_id]/route error :>> ', error);
     return NextResponse.json(
       {
-        message: "Error", error
+        message: `Error: ${error}`
       },
       {
         status: 500
