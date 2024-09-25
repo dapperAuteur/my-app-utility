@@ -1,20 +1,26 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
-// import Tag from '../(models)/Tag';
+import { useSession } from 'next-auth/react';
 
 function Tags() {
+  const { data: session } = useSession();
   const [tags, setTags] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  console.log('errorMessage.message :>> ', errorMessage.message);
+  console.log('session :>> ', session);
 
-  const handleDelete = async (tagId) => {
-    // console.log('tagId :>> ', tagId);
+  const handleDelete = async (session, tagId) => {
+    if (!session) {
+      setErrorMessage({message: "Tag NOT DELETED! Must be Admin to delete Tag."});
+      return
+    }
+    console.log('tagId :>> ', tagId);
     try {
       const res = await fetch(`/api/tags/${tagId}`, {
         method: "DELETE",
+        body: JSON.stringify(session),
         "content-type": "application/json",
       });
       setTags(tags.filter(tag => tag._id !== tagId));
@@ -49,8 +55,8 @@ function Tags() {
   return (
     <div className='m-2'>
       <h3>Tag List</h3>
-      <p>{errorMessage.message}</p>
-      <p>{successMessage}</p>
+      <p className='text-red-500'>{errorMessage.message}</p>
+      <p className='text-green-500'>{successMessage}</p>
       {
         tags.map(tag => (
           <div className='border-double border-2 m-2' key={tag._id}>
@@ -59,7 +65,7 @@ function Tags() {
               <div>Description:{tag.description}</div>
             </Link>
             <Link href={`/tags/${tag._id}/edit`} className='m-2'>Edit</Link>
-            <button onClick={() => handleDelete(tag._id)} className='m-2'>Delete</button>
+            <button onClick={() => handleDelete(session, tag._id)} className='m-2'>Delete</button>
           </div>
         ))
       }
