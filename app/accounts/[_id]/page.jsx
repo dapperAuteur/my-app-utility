@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 function Account ({params}) {
-  // console.log('5 client params :>> ', params);
+  console.log('5 client params :>> ', params);
   const { _id } = params;
 
   const [account, setAccount] = useState(null);
@@ -36,7 +36,7 @@ function Account ({params}) {
         }
         const result = await res.json();
         // console.log('result :>> ', result);
-        setAccount(result.account[0]);
+        setAccount(result.account[0]); // why does it return an array
       } catch (error) {
         console.log('error :>> ', error);
         setError(error.message);
@@ -59,6 +59,14 @@ function Account ({params}) {
       <h2>Account</h2>
       <h3>{account.account_name}</h3>
       <h3>{account.account_type}</h3>
+              <h4>Tags:</h4>
+              {
+                account.tags.map((tag) => (
+                  <div className='border-double border-2' key={tag._id}>
+                    <Link href={`/tags/${tag._id}`}><h4>{tag.tag_name}</h4></Link>
+                  </div>
+                ))
+              }
       <div>
         <Link href={`/accounts/${account._id}/edit`}>Edit</Link>
       </div>
