@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
 import Tag from "./../../../(models)/Tag";
-import Error from "next/error";
 
 export async function GET(req, {params}) {
-  
+  console.log('params :>> ', params);
   const {_id} = params;
-  console.log('7 server _id :>> ', _id);
+  console.log('8 server _id :>> ', _id);
 
   let foundTag = await Tag.find({_id: _id})
     .then((obj) => {
