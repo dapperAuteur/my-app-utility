@@ -62,7 +62,7 @@ function Tags() {
           <div className='border-double border-2 m-2' key={tag._id}>
             <Link href={`/tags/${tag._id}`}>
               <div>Name: {tag.tag_name}</div>
-              <div>Description:{tag.description}</div>
+              <div>Description: {tag.description}</div>
             </Link>
             <Link href={`/tags/${tag._id}/edit`} className='m-2'>Edit</Link>
             <button onClick={() => handleDelete(session, tag._id)} className='m-2'>Delete</button>
