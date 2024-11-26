@@ -5,12 +5,9 @@ export async function GET (req, { params }) {
   const { _id } = params;
 
   try {
-    let foundAccount = await Account.find({_id: _id})
+    let foundAccount = await Account.find({_id: _id}).populate("tags")
       .then((obj) => {
         return obj;
-      })
-      .then((fA) => {
-        return fA;
       });
 
   return NextResponse.json(
@@ -43,27 +40,6 @@ export async function PATCH(req, {params}) {
   const acctData = body.formData;
 
   try {
-    // update account
-    const duplicate = await Account.findOne({
-      account_name: acctData.account_name
-    })
-      .lean()
-      .exec();
-      // check that a document was found with the account name of the updated object
-    if (duplicate) {
-      // check if the account name matches the original document by using the _id
-      // if not, then it's a duplicate of an existing document and cannot be updated in the db
-      if (duplicate._id !== acctData._id) {
-        return NextResponse.json(
-          {
-            message: "Duplicate Account Name. Please Choose Another Name."
-          },
-          {
-            status: 409
-          }
-        )
-      }
-    }
 
     const updatedAccount = await Account.findOneAndUpdate({
       _id
