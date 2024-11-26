@@ -4,8 +4,6 @@ import mongoose, { Schema } from "mongoose";
 mongoose.connect(process.env.MONGODB_URL);
 mongoose.Promise = global.Promise;
 
-// export interface Transactions
-
 const transactionSchema = new Schema(
   {
     amount: {
@@ -14,10 +12,10 @@ const transactionSchema = new Schema(
     },
   },
   {
-    account: {
-      type: String,
+    accounts: [{
+      type: Schema.Types.ObjectId,
       required: true,
-    }
+    }]
   },
   {
     description: {
@@ -36,6 +34,12 @@ const transactionSchema = new Schema(
       type: String,
       required: false
     }
+  },
+  {
+    tags: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Tag'
+   }]
   },
   {
     userId: {
