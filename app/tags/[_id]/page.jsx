@@ -49,7 +49,7 @@ function Tag({params}) {
         // console.log('result :>> ', result);
         setTag(result.tag[0]);
       } catch (error) {
-        setError(error.message);
+        setErrorMessage(error.message);
       }
     } 
     fetchTag();
