@@ -6,6 +6,8 @@ export async function POST(req) {
     const body = await req.json();
     const acctData = body.formData;
 
+    console.log('line 9 acctData :>> ', acctData);
+
     if (!acctData?.account_name || !acctData?.account_type) {
       return NextResponse.json({
         message: "All fields are required."
@@ -43,10 +45,8 @@ export async function POST(req) {
 
 export async function GET(req) {
   try {
-    // const body = await req.json();
-    // console.log('47 accounts/route body :>> ', body);
 
-    let accounts = await Account.find();
+    let accounts = await Account.find().populate("tags");
     console.log('accounts :>> ', accounts);
     return NextResponse.json(
       {
