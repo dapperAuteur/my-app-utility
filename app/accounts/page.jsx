@@ -46,7 +46,7 @@ const Accounts = () => {
   
   return (
     <div>
-      <h1>Accounts List</h1>
+      <h1>Account List</h1>
       <br/>
       <hr/>
       <p className='text-red-500'>{errorMessage}</p>
@@ -57,6 +57,14 @@ const Accounts = () => {
             <Link href={`/accounts/${account._id}`}>
               <h3>{account.account_name}</h3>
               <h4>{account.account_type}</h4>
+              <h4>Tags:</h4>
+              {
+                account.tags.map((tag) => (
+                  <div className='border-double border-2' key={tag._id}>
+                    <Link href={`/tags/${tag._id}`}><h4>{tag.tag_name}</h4></Link>
+                  </div>
+                ))
+              }
             </Link>
             <div>
               <Link className='border-double border-2' href={`/accounts/${account._id}/edit`}>Edit</Link>
