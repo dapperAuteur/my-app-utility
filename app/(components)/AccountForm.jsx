@@ -1,16 +1,45 @@
 "use client"
 
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const AccountForm = () => {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    "account_name": "",
-    "account_type": "Checking",
-  });
+
+  const [tags, setTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  const defaultAccount = {
+    account_name: "",
+    account_type: "Checking",
+    tags: selectedTags
+  }
+
+  const [formData, setFormData] = useState(defaultAccount);
+
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      const res = await fetch("/api/tags");
+      const data = await res.json();
+      console.log('line 25 data.data :>> ', data.data);
+      setTags(data.data);
+    };
+  
+    fetchTags();
+  }, [])
+
+  useEffect(() => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      tags: selectedTags,
+    }))
+
+  }, [selectedTags])
+  
+  
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -21,9 +50,24 @@ const AccountForm = () => {
     }));
   }
 
+  const handleTagChange = (tagId) => {
+    console.log('line 43 tagId :>> ', tagId);
+    console.log('line 44 selectedTags :>> ', selectedTags);
+    setSelectedTags((prevSelected = []) => {
+      console.log('prevSelected :>> ', prevSelected);
+      const updatedTags = prevSelected.includes(tagId)
+        ? prevSelected.filter((id) => id !== tagId)
+        : [...prevSelected, tagId]
+      return updatedTags;
+    });
+    console.log('line 49 tagId :>> ', tagId);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
+    setSuccessMessage("");
+    console.log('line 54 formData :>> ', formData);
     const res = await fetch("/api/accounts", {
       method: "POST",
       body: JSON.stringify({formData}),
@@ -33,8 +77,9 @@ const AccountForm = () => {
       const response = await res.json();
       setErrorMessage(response.message);
     } else {
-      setFormData({});
+      setFormData(defaultAccount);
       setSuccessMessage("ACCOUNT CREATED");
+      setErrorMessage("");
       router.refresh();
       router.push("/create-account");
     }
@@ -66,6 +111,19 @@ const AccountForm = () => {
           required={true}
           value={formData.account_type}
           className="m-2 bg-slate-400 rounded" />
+        <fieldset>
+            <legend>Select Tags:</legend>
+            {tags.map((tag) => (
+              <label key={tag._id}>
+                <input
+                  type="checkbox"
+                  value={tag._id}
+                  onChange={() => handleTagChange(tag._id)}
+                />
+                {tag.tag_name}
+              </label>
+            ))}
+        </fieldset>
         <input
           type="submit"
           value="Create Account"
